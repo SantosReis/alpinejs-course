@@ -17,5 +17,17 @@
       x-data
       x-text="await (await fetch('https://jsonplaceholder.typicode.com/todos/1')).text()"
     ></div>
+
+    <!-- x-data with methods -->
+    <div
+      x-data="{
+        message: 'Click me to change',
+        change(){
+          this.message = 'Change message'
+        }
+      }"
+    >
+      <span x-html="message" @click="change()"></span>
+    </div>
   </body>
 </html>
