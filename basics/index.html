@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alpine.js Course</title>
     <script defer src="https://unpkg.com/alpinejs@3.14.3/dist/cdn.min.js"></script>
+    <script src="app.js"></script>
   </head>
   <body>
     <!-- x-data, x-text, x-html -->
@@ -28,6 +29,31 @@
       }"
     >
       <span x-html="message" @click="change()"></span>
+    </div>
+
+    <!-- Re-usable Data level 1 -->
+    <div x-data="{open:false}">
+      <button @click="open = !open">Open/Close</button>
+      <div x-show="open">Content...</div>
+    </div>
+
+    <!-- Re-usable Data level 2 -->
+    <div
+      x-data="{
+        open:false,
+        toggle(){
+          this.open = !this.open
+        }
+      }"
+    >
+      <button @click="toggle">Open/Close</button>
+      <div x-show="open">Content...</div>
+    </div>
+
+    <!-- Re-usable Data level 3 -->
+    <div x-data="dropdown">
+      <button @click="toggle">Open/Close</button>
+      <div x-show="open" x-text="message"></div>
     </div>
   </body>
 </html>
