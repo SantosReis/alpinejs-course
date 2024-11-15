@@ -55,5 +55,9 @@
       <button @click="toggle">Open/Close</button>
       <div x-show="open" x-text="message"></div>
     </div>
+
+    <!-- Data-Less components -->
+    <div x-data @click="alert('Data-Less components')">Click me 1</div>
+    <div x-data @click="console.log('Data-Less components')">Click me 2</div>
   </body>
 </html>
