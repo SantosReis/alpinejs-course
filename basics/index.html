@@ -59,5 +59,10 @@
     <!-- Data-Less components -->
     <div x-data @click="alert('Data-Less components')">Click me 1</div>
     <div x-data @click="console.log('Data-Less components')">Click me 2</div>
+
+    <!-- Data coming from Store -->
+    <div x-data x-text="$store.currentUser.username"></div>
+    <div x-data x-text="$store.currentUser.posts[0]"></div>
+    <div x-data x-text="$store.currentUser.posts[1]"></div>
   </body>
 </html>
