@@ -161,6 +161,15 @@
         <h2 x-text="post.id + '. ' + post.title"></h2>
       </template>
     </div>
+
+    <!-- x-for in range -->
+    <h3>x-for in range</h3>
+    <div x-data>
+      <template x-for="n in 5">
+        <p x-text="n"></p>
+      </template>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
