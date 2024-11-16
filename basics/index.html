@@ -81,5 +81,24 @@
       <p x-text="todo.title"></p>
       <span x-text="`Todo ID: `+todo.id"></span>
     </div>
+
+    <!-- Scoping -->
+    <div
+      x-data="{
+        name: 'John', 
+        gender: 'male',
+        age: 30
+    }"
+    >
+      <h4 x-text="name"></h4>
+      <div x-data="{name: 'Mary', age: 25}">
+        <h4 x-text="name"></h4>
+        <div x-data="{name: 'Zura'}">
+          <h4 x-text="name"></h4>
+          <p x-text="gender"></p>
+          <p x-text="age"></p>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
