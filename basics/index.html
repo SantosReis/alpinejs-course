@@ -289,6 +289,18 @@
       <button @click="$refs.inputEmail.style.borderColor = 'red'">Check</button>
     </div>
 
+    <!-- x-cloak -->
+    <h3>x-cloak</h3>
+    <div x-data="{open: false}">
+      <button @click="open = !open">Open/Close</button>
+      <div x-show="open" x-cloak>Modal Content...</div>
+    </div>
+    <style>
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
+
     <div style="height: 500px"></div>
   </body>
 </html>
