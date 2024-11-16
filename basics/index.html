@@ -242,6 +242,13 @@
       <button @click="$dispatch('editing')">Edit</button>
     </div>
 
+    <h3>x-model</h3>
+    <!-- x-model -->
+    <div x-data="{keyword: 'laptop'}">
+      <input type="text" placeholder="Search for items" x-model.debounce.500ms="keyword" />
+      <p x-text="keyword"></p>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
