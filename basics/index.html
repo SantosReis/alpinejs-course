@@ -139,6 +139,16 @@
         Content
       </div>
     </div>
+
+    <!-- x-if -->
+    <h3>x-if</h3>
+    <div x-data="{ open: false }">
+      <button x-on:click="open = ! open">Open/Close</button>
+
+      <template x-if="open">
+        <div>Content</div>
+      </template>
+    </div>
     <div style="height: 500px"></div>
   </body>
 </html>
