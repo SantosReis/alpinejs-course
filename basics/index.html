@@ -149,6 +149,18 @@
         <div>Content</div>
       </template>
     </div>
+
+    <!-- x-for -->
+    <h3>x-for</h3>
+    <div
+      x-data="{
+          posts: [{id: 1, title: 'title 1'}, {id: 2, title: 'title 2'}]
+      }"
+    >
+      <template x-for="(post, index) in posts" :key="post.id">
+        <h2 x-text="post.id + '. ' + post.title"></h2>
+      </template>
+    </div>
     <div style="height: 500px"></div>
   </body>
 </html>
