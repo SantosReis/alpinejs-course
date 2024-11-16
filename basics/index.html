@@ -215,6 +215,23 @@
       </template>
     </div>
 
+    <!-- x-on -->
+    <h3>x-on</h3>
+    <div x-data>
+      <button @click="console.log('Button 1')">Clicked 1</button>
+      <input type="text" @keyup="console.log('keyup1')" />
+      <input type="text" @keyup.enter="console.log('keyup2')" />
+
+      <input type="text" @keyup.once="console.log('Typed')" />
+      <input type="text" @keyup.debounce="console.log('With Debounce')" />
+    </div>
+
+    <h3>x-on - outside</h3>
+    <div x-data="{modal: false}">
+      <button @click="modal = true">Show Modal</button>
+      <div x-show="modal" @click.outside="modal = false">Modal Content...</div>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
