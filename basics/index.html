@@ -119,5 +119,14 @@
       <button @click="toggle">Open/Close</button>
       <div x-show="open">Content</div>
     </div>
+
+    <!-- x-show & x-transition -->
+    <div x-data="{ open: false }">
+      <button x-on:click="open = ! open">Open/Close</button>
+
+      <div x-show="open" x-transition:enter.duration.200ms x-transition:leave.duration.2000ms>
+        Content
+      </div>
+    </div>
   </body>
 </html>
