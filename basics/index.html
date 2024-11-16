@@ -170,6 +170,25 @@
       </template>
     </div>
 
+    <!-- x-bind: class  -->
+    <h3>x-bind: class</h3>
+    <div x-data="{clicked: false}">
+      <button class="red" :class="clicked ? 'clicked' : ''" @click="clicked = !clicked">
+        Click me
+      </button>
+    </div>
+    <div x-data="{clicked: false}">
+      <button class="yellow" :class="{clicked}" @click="clicked = !clicked">Click me</button>
+    </div>
+    <style>
+      .red {
+        background-color: red;
+      }
+      .clicked {
+        background-color: green;
+      }
+    </style>
+
     <div style="height: 500px"></div>
   </body>
 </html>
