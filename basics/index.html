@@ -341,6 +341,18 @@
       <p x-ref="p" x-text="name"></p>
     </div>
 
+    <!-- $root -->
+    <h3>$root</h3>
+    <div x-data id="1">
+      <div>
+        <div x-data id="2">
+          <div>
+            <button @click="console.log($root)">Button</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
