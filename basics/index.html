@@ -203,6 +203,18 @@
       Random id: <span x-text="id"></span>
     </button>
 
+    <!-- Challenge -->
+    <h3>Challenge</h3>
+    <div x-data="{colors: ['red', 'green', 'blue']}">
+      <!-- Iterate over colors and display 40x40 px boxes with given colors -->
+      <template x-for="color in colors">
+        <div
+          style="width: 40px; height: 40px; display: inline-block"
+          :style="{backgroundColor: color}"
+        ></div>
+      </template>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
