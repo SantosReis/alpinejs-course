@@ -274,6 +274,14 @@
       <button @click="name= 'John'">Change Name</button>
     </div>
 
+    <!-- x-ignore -->
+    <h3>x-ignore</h3>
+    <div x-data="{name: 'Zura'}">
+      <div x-ignore>
+        <p x-text="name"></p>
+      </div>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
