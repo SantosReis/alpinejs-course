@@ -301,6 +301,20 @@
       }
     </style>
 
+    <!-- x-teleport -->
+    <div x-data>
+      <h3>x-teleport</h3>
+      <p>Some Long Content</p>
+      <div x-data="{modal: false}">
+        <button @click="modal = true">Show Modal</button>
+        <template x-teleport="body">
+          <div x-show="modal">Modal Content...</div>
+        </template>
+      </div>
+
+      <p>More Content</p>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
