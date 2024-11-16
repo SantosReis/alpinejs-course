@@ -367,6 +367,17 @@
       </div>
     </div>
 
+    <!-- $id -->
+    <h3>$id</h3>
+    <div x-data>
+      <div x-id="['text-input']">
+        <label :for="$id('text-input')" />
+        <!-- "text-input-1" -->
+        <input type="text" :id="$id('text-input')" />
+        <!-- "text-input-1" -->
+      </div>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
