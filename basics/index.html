@@ -353,6 +353,20 @@
       </div>
     </div>
 
+    <!-- $data -->
+    <h3>$data</h3>
+    <div x-data="{name: 'John'}">
+      <div>
+        <button @click="console.log($data)">$data</button>
+      </div>
+    </div>
+    <h3>$data false</h3>
+    <div x-data="dropdown">
+      <div>
+        <button @click="console.log($data.open)">$data</button>
+      </div>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
