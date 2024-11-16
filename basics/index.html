@@ -315,6 +315,12 @@
       <p>More Content</p>
     </div>
 
+    <!-- Magic Properties -->
+    <!-- $el -->
+    <div x-data x-init="console.log('Init el ', $el)">
+      <button @click="console.log($el)">Button</button>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
