@@ -189,6 +189,14 @@
       }
     </style>
 
+    <!-- x-bind: style -->
+    <h3>x-bind: style</h3>
+    <div x-data="{clicked: false}">
+      <button :style="clicked && {'backgroundColor': 'red'}" @click="clicked = !clicked">
+        Click me
+      </button>
+    </div>
+
     <div style="height: 500px"></div>
   </body>
 </html>
