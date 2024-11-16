@@ -10,6 +10,7 @@
   </head>
   <body>
     <!-- x-data, x-text, x-html -->
+    <h3>x-data, x-text, x-html</h3>
     <div x-data="{name: 'Zura', message: 'Hello <b>World</b>' }">
       <p x-text="name"></p>
       <p x-html="message"></p>
@@ -20,6 +21,7 @@
     ></div>
 
     <!-- x-data with methods -->
+    <h3>x-data with methods</h3>
     <div
       x-data="{
         message: 'Click me to change',
@@ -32,12 +34,14 @@
     </div>
 
     <!-- Re-usable Data level 1 -->
+    <h3>Re-usable Data level 1</h3>
     <div x-data="{open:false}">
       <button @click="open = !open">Open/Close</button>
       <div x-show="open">Content...</div>
     </div>
 
     <!-- Re-usable Data level 2 -->
+    <h3>Re-usable Data level 2</h3>
     <div
       x-data="{
         open:false,
@@ -51,21 +55,25 @@
     </div>
 
     <!-- Re-usable Data level 3 -->
+    <h3>Re-usable Data level 3</h3>
     <div x-data="dropdown">
       <button @click="toggle">Open/Close</button>
       <div x-show="open" x-text="message"></div>
     </div>
 
     <!-- Data-Less components -->
+    <h3>Data-Less components</h3>
     <div x-data @click="alert('Data-Less components')">Click me 1</div>
     <div x-data @click="console.log('Data-Less components')">Click me 2</div>
 
     <!-- Data coming from Store -->
+    <h3>Data-Less components</h3>
     <div x-data x-text="$store.currentUser.username"></div>
     <div x-data x-text="$store.currentUser.posts[0]"></div>
     <div x-data x-text="$store.currentUser.posts[1]"></div>
 
     <!-- x-init -->
+    <h3>x-init</h3>
     <div x-init="console.log('Init')"></div>
     <div
       x-data="{
@@ -83,6 +91,7 @@
     </div>
 
     <!-- Scoping -->
+    <h3>Scoping</h3>
     <div
       x-data="{
         name: 'John', 
@@ -90,11 +99,11 @@
         age: 30
     }"
     >
-      <h4 x-text="name"></h4>
+      <p x-text="name"></p>
       <div x-data="{name: 'Mary', age: 25}">
-        <h4 x-text="name"></h4>
+        <p x-text="name"></p>
         <div x-data="{name: 'Zura'}">
-          <h4 x-text="name"></h4>
+          <p x-text="name"></p>
           <p x-text="gender"></p>
           <p x-text="age"></p>
         </div>
@@ -102,6 +111,7 @@
     </div>
 
     <!-- Getters & Setters -->
+    <h3>Getters & Setters</h3>
     <div
       x-data="{
           open: false,
@@ -121,6 +131,7 @@
     </div>
 
     <!-- x-show & x-transition -->
+    <h3>x-show & x-transition</h3>
     <div x-data="{ open: false }">
       <button x-on:click="open = ! open">Open/Close</button>
 
@@ -128,5 +139,6 @@
         Content
       </div>
     </div>
+    <div style="height: 500px"></div>
   </body>
 </html>
