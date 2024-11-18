@@ -10,12 +10,13 @@
 
     <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/mask@3.10.2/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/intersect@3.10.2/dist/cdn.min.js"></script>
 
     <!-- Alpine Core -->
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
   </head>
   <body>
-    <!-- Mask -->
+    <!-- Mask Plugin -->
     <div x-data>
       <input type="text" x-mask="99/99/9999" placeholder="MM/DD/YYYY" />
 
@@ -29,5 +30,21 @@
     <br /><br /><br /><br /><br />
     <br /><br /><br /><br /><br />
     <br /><br /><br /><br /><br />
+
+    <!-- Intersect Plugin -->
+    <div x-data="{ shown: false }" x-intersect="shown = true">
+      <div x-show="shown" x-transition>I'm in the viewport!</div>
+    </div>
+    <div x-data>
+      <div
+        x-data="{dataSrc: '1.jpg', src: null}"
+        class="w-48 h-48 border"
+        x-intersect.once.half="src = dataSrc"
+      >
+        <img x-show="src" x-transition :src="src" alt="" />
+      </div>
+    </div>
+
+    </script>
   </body>
 </html>
