@@ -11,12 +11,14 @@
     <!-- Alpine Plugins -->
     <script defer src="https://unpkg.com/@alpinejs/mask@3.10.2/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/@alpinejs/intersect@3.10.2/dist/cdn.min.js"></script>
-
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.10.2/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/focus@3.10.2/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
   </head>
   <body>
     <!-- Mask Plugin -->
+    <h3>Mask Plugin</h3>
     <div x-data>
       <input type="text" x-mask="99/99/9999" placeholder="MM/DD/YYYY" />
 
@@ -32,6 +34,7 @@
     <br /><br /><br /><br /><br />
 
     <!-- Intersect Plugin -->
+    <h3>Intersect Plugin</h3>
     <div x-data="{ shown: false }" x-intersect="shown = true">
       <div x-show="shown" x-transition>I'm in the viewport!</div>
     </div>
@@ -45,6 +48,37 @@
       </div>
     </div>
 
-    </script>
+    <!-- Persist Plugin -->
+    <h3>Persist Plugin</h3>
+    <div x-data="{count: $persist(0).as('my-count').using(localStorage)}">
+      <button
+        x-on:click="count++"
+        class="inline-flex items-center py-2 px-6 bg-purple-600 hover:bg-opacity-95 text-white rounded-md shadow"
+      >
+        Increment
+      </button>
+
+      <span x-text="count"></span>
+    </div>
+    <div x-data="{name: $persist(null).as('user-name')}">
+      <input type="text" x-model="name" />
+    </div>
+
+    <!-- Focus Plugin -->
+    <h3>Focus Plugin</h3>
+    <div x-data="{ open: false }">
+      <button @click="open = !open">Open Dialog</button>
+
+      <span x-show="open" x-trap="open">
+        <p>...</p>
+
+        <input type="text" placeholder="Some input..." />
+
+        <input type="text" placeholder="Some other input..." />
+
+        <button @click="open = false">Close Dialog</button>
+      </span>
+      <input type="text" />
+    </div>
   </body>
 </html>
