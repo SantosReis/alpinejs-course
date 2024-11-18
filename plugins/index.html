@@ -14,6 +14,7 @@
     <script defer src="https://unpkg.com/@alpinejs/persist@3.10.2/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/@alpinejs/focus@3.10.2/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/@alpinejs/collapse@3.10.2/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/morph@3.10.2/dist/cdn.min.js"></script>
     <!-- Alpine Core -->
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
   </head>
@@ -82,7 +83,7 @@
       <input type="text" />
     </div>
 
-    <!-- Collapse -->
+    <!-- Collapse Plugin -->
     <h3>Collapse Plugin</h3>
     <div x-data="{ expanded: false }">
       <p x-show="expanded" x-collapse.min.50px>
@@ -92,5 +93,33 @@
       </p>
       <button @click="expanded = ! expanded" x-text="expanded ? 'Read Less' : 'Read More'"></button>
     </div>
+    <!-- Morph Plugin -->
+    <h3>Morph Plugin</h3>
+    <div x-data="{ message: 'Change me, then press the button!' }">
+      <input type="text" x-model="message" />
+      <span x-text="message"></span>
+    </div>
+
+    <button>Run Morph</button>
+
+    <script>
+      document.querySelector('button').addEventListener('click', () => {
+        let el = document.querySelector('div')
+
+        Alpine.morph(
+          el,
+          `
+            <div x-data="{ message: 'Change me, then press the button!' }">
+                <h2>See how new elements have been added</h2>
+  
+                <input type="text" x-model="message">
+                <span x-text="message"></span>
+  
+                <h2>but the state of this component hasn't changed? Magical.</h2>
+            </div>
+        `
+        )
+      })
+    </script>
   </body>
 </html>
