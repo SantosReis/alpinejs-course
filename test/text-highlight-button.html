@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine.js Plugins</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+
+    <!-- Alpine Core -->
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/KevinBatdorf/alpine-auto-init@0.x.x/dist/index.js"
+    ></script>
+
+    <style>
+      [x-cloak] {
+        display: none;
+      }
+      .has-tip-bottom::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        background: inherit;
+        transform-origin: -3px calc(100% - 6px);
+        transform: rotate(45deg);
+      }
+    </style>
+    <script>
+      // Alpine 2.3.5
+      function textHighlightHandler() {
+        return {
+          selection: '',
+          position: {
+            top: 0,
+            left: 0
+          },
+          showButtons() {
+            // TODO: Add global events and check if text inide $el is highlighted
+            // Because mousedown can fire inside, but mouseup outside, yet text is highlighted
+            // Might not be needed, but adds extra polish
+            this.clearInput()
+            const selection = window.getSelection()
+            const string = selection.toString()
+            if (!string.length) return
+            const range = selection.getRangeAt(0).getBoundingClientRect()
+            this.position.top = range.top
+            this.position.left = range.width / 2 + range.left
+            this.selection = string
+          },
+          clearInput() {
+            this.selection = ''
+          }
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div x-data="textHighlightHandler()" @click.away="clearInput()" class="max-w-2xl">
+      <!-- Make sure there is no space between these two elements -->
+      <article
+        class="p-16 leading-loose"
+        @mouseup="showButtons()"
+        @contextmenu="showButtons()"
+        @mousedown="clearInput()"
+        x-ref="article"
+      >
+        <h1 class="font-bold text-lg">Highlight some text</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ipsum felis, efficitur
+          nec turpis sed, dignissim semper mi. Fusce eget felis id nunc condimentum tempus.
+          Curabitur ut felis enim. Proin congue porttitor elementum. Vestibulum bibendum,
+          <strong>magna id varius viverra</strong>, lectus odio vulputate eros, eu ullamcorper
+          sapien velit nec lacus. Morbi tincidunt pretium tortor non commodo. Ut odio sem,
+          sollicitudin quis vulputate id, dapibus vulputate tellus. Sed a luctus ligula. Cras
+          viverra at libero in volutpat. Mauris vitae convallis velit. Maecenas tempor hendrerit
+          arcu, eget euismod ipsum volutpat vitae. Praesent quis tellus odio. Phasellus mollis dui
+          eget metus sollicitudin volutpat.
+        </p>
+      </article>
+
+      <!-- This uses class state instead of x-show otherwise style attribute is overwritten -->
+      <div
+        x-cloak
+        @contextmenu="findAndWrapString(window.getSelection())"
+        :style="
+        `margin-left:-56px;
+        transform:translate3d(${position.left}px, ${position.top}px, 0)`
+      "
+        :class="{
+        'opacity-0 invisible' : !selection.length,
+        'opacity-100 visible': selection.length
+      }"
+        class="has-tip-bottom absolute top-0 left-0 -mt-12 transition-opacity duration-300 bg-indigo-500 flex items-center py-2 px-3 rounded-lg space-x-2 text-white leading-none shadow-xl"
+      >
+        <button
+          class="focus:outline-none rounded-lg transition duration-200"
+          aria-label="Highlight"
+        >
+          <svg
+            class="inline-block w-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-pen-tool"
+          >
+            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+            <path d="M2 2l7.586 7.586"></path>
+            <circle cx="11" cy="11" r="2"></circle>
+          </svg>
+        </button>
+        <button
+          class="focus:outline-none rounded-lg transition duration-200"
+          aria-label="Share on Twitter"
+        >
+          <svg
+            class="inline-block w-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-twitter"
+          >
+            <path
+              d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          class="focus:outline-none rounded-lg transition duration-200"
+          aria-label="Suggest edit"
+        >
+          <svg
+            class="inline-block w-6 stroke-current"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-edit"
+          >
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Dev tools -->
+    <div id="alpine-devtools" x-data="devtools()" x-show="alpines.length" x-init="start()"></div>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine.js Plugins</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+
+    <!-- Alpine Core -->
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+  </head>
+
+  <body>
+    <div class="min-h-screen p-16 bg-gray-100">
+      <div x-data="{ categories: [2,3] }">
+        <input type="checkbox" value="1" x-model="categories" />
+        <input type="checkbox" value="2" x-model="categories" />
+        <input type="checkbox" value="3" x-model="categories" />
+        <input type="checkbox" value="4" x-model="categories" />
+        <input type="checkbox" value="5" x-model="categories" />
+        <input type="checkbox" value="6" x-model="categories" />
+        <input type="checkbox" value="7" x-model="categories" />
+        <span x-text="categories.join(', ')"></span>
+      </div>
+    </div>
+  </body>
+</html>
