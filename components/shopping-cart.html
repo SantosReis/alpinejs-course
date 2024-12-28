@@ -485,9 +485,20 @@
                   </a>
 
                   <label for="counter-input" class="sr-only">Choose quantity:</label>
-                  <div class="flex items-center justify-between md:order-3 md:justify-end">
+                  <div
+                    x-data="{ 
+                      count: 1,
+                      product_price: 699,
+                      get total(){
+                        return this.count * this.product_price
+                      }
+                    }"
+                    x-init="$watch('count', value => console.log(total))"
+                    class="flex items-center justify-between md:order-3 md:justify-end"
+                  >
                     <div class="flex items-center">
                       <button
+                        x-on:click="count = count > 0 ? count-1 : count"
                         type="button"
                         id="decrement-button-4"
                         data-input-counter-decrement="counter-input-4"
@@ -516,9 +527,11 @@
                         class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
                         value="1"
+                        x-model="count"
                         required
                       />
                       <button
+                        x-on:click="count++"
                         type="button"
                         id="increment-button-4"
                         data-input-counter-increment="counter-input-4"
@@ -542,7 +555,11 @@
                       </button>
                     </div>
                     <div class="text-end md:order-4 md:w-32">
-                      <p class="text-base font-bold text-gray-900 dark:text-white">$699</p>
+                      <!-- <p class="text-base font-bold text-gray-900 dark:text-white">$699</p> -->
+                      <p
+                        class="text-base font-bold text-gray-900 dark:text-white"
+                        x-text="`$${total}`"
+                      ></p>
                     </div>
                   </div>
 
