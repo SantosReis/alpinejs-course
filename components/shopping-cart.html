@@ -39,9 +39,10 @@
                   </a>
 
                   <label for="counter-input" class="sr-only">Choose quantity:</label>
-                  <div class="flex items-center justify-between md:order-3 md:justify-end">
+                  <div x-data class="flex items-center justify-between md:order-3 md:justify-end">
                     <div class="flex items-center">
                       <button
+                        @click="$dispatch('set-original-price', '7,592.00')"
                         type="button"
                         id="decrement-button"
                         data-input-counter-decrement="counter-input"
@@ -1006,13 +1007,21 @@
             >
               <p class="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
 
-              <div class="space-y-4">
+              <div
+                class="space-y-4"
+                x-data="{ original_price: 0 }"
+                @set-original-price.window="original_price = $event.detail"
+              >
                 <div class="space-y-2">
                   <dl class="flex items-center justify-between gap-4">
                     <dt class="text-base font-normal text-gray-500 dark:text-gray-400">
                       Original price
                     </dt>
-                    <dd class="text-base font-medium text-gray-900 dark:text-white">$7,592.00</dd>
+                    <!-- <dd class="text-base font-medium text-gray-900 dark:text-white">$7,592.00</dd> -->
+                    <dd
+                      class="text-base font-medium text-gray-900 dark:text-white"
+                      x-text="original_price"
+                    ></dd>
                   </dl>
 
                   <dl class="flex items-center justify-between gap-4">
