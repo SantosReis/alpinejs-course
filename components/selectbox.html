@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine.js Course Components</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+
+    <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body class="bg-gray-100 p-8">
+    <div
+      x-data="{countries:[
+      {code: 'it', name: 'Italy'},
+      {code: 'fr', name: 'France'},
+      {code: 'uk', name: 'United Kingdom'},
+      {code: 'pt', name: 'Portugal'}
+    ],
+    myCountryCode: ''
+  }"
+    >
+      <select x-model="myCountryCode">
+        <option value="" disabled>Select a country</option>
+        <!-- use ''<option :value="country.code" ...' , not x-value because it's not an Alpinejs directive! -->
+        <!-- then, this is not necessary:  :selected="myCountryCode===country.code" -->
+        <template x-for="(country, i) in countries" :key="i">
+          <option
+            :selected="ountry.code == 'pt'"
+            :value="country.code"
+            x-text="country.name"
+          ></option>
+        </template>
+      </select>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <p>My Country Code: <span x-text="myCountryCode"></span></p>
+      <p>(expected output: it , fr, uk, ...)</p>
+      <br />
+      <button @click="myCountryCode='it'">Set: it</button>
+      <button @click="myCountryCode='fr'">Set: fr</button>
+      <button @click="myCountryCode='uk'">Set: uk</button>
+      <br />
+    </div>
+  </body>
+</html>
