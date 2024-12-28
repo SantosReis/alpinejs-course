@@ -181,9 +181,10 @@
                   </a>
 
                   <label for="counter-input" class="sr-only">Choose quantity:</label>
-                  <div class="flex items-center justify-between md:order-3 md:justify-end">
+                  <div x-data class="flex items-center justify-between md:order-3 md:justify-end">
                     <div class="flex items-center">
                       <button
+                        @click="$dispatch('set-original-price', '7,592.00')"
                         type="button"
                         id="decrement-button-2"
                         data-input-counter-decrement="counter-input-2"
@@ -322,9 +323,20 @@
                   </a>
 
                   <label for="counter-input" class="sr-only">Choose quantity:</label>
-                  <div class="flex items-center justify-between md:order-3 md:justify-end">
+                  <div
+                    x-data="{ 
+                      count: 1,
+                      product_price: 799,
+                      get total(){
+                        return this.count * this.product_price
+                      }
+                    }"
+                    class="flex items-center justify-between md:order-3 md:justify-end"
+                  >
                     <div class="flex items-center">
                       <button
+                        x-on:click="count = count > 0 ? count-1 : count"
+                        @click="$dispatch('set-original-price', total)"
                         type="button"
                         id="decrement-button-3"
                         data-input-counter-decrement="counter-input-3"
@@ -352,10 +364,12 @@
                         data-input-counter
                         class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        value="1"
+                        x-model="count"
                         required
                       />
                       <button
+                        x-on:click="count++"
+                        @click="$dispatch('set-original-price', total)"
                         type="button"
                         id="increment-button-3"
                         data-input-counter-increment="counter-input-3"
@@ -379,7 +393,15 @@
                       </button>
                     </div>
                     <div class="text-end md:order-4 md:w-32">
-                      <p class="text-base font-bold text-gray-900 dark:text-white">$1,799</p>
+                      <!-- <p class="text-base font-bold text-gray-900 dark:text-white">$1,799</p> -->
+                      <!-- <p
+                        class="text-base font-bold text-gray-900 dark:text-white"
+                        x-text="product_price"
+                      ></p> -->
+                      <p
+                        class="text-base font-bold text-gray-900 dark:text-white"
+                        x-text="`$${total}`"
+                      ></p>
                     </div>
                   </div>
 
@@ -1018,9 +1040,13 @@
                       Original price
                     </dt>
                     <!-- <dd class="text-base font-medium text-gray-900 dark:text-white">$7,592.00</dd> -->
-                    <dd
+                    <!-- <dd
                       class="text-base font-medium text-gray-900 dark:text-white"
                       x-text="original_price"
+                    ></dd> -->
+                    <dd
+                      class="text-base font-medium text-gray-900 dark:text-white"
+                      x-text="`$${original_price}`"
                     ></dd>
                   </dl>
 
