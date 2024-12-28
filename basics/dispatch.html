@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alpine.js Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.14.3/dist/cdn.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body class="p-4">
+
+    <h1 class="text-xl m-3">Intro</h1>
+    <div class="m-3 mb-10">
+      <p>Alpine.js is a great lightweight option for declarative view rendering</p>
+      <p>Alpine.js, unlike React or Vue, doesn’t provide any parent-child communication patterns or primitives</p>
+      <p>That means that in Alpine.js there’s no parent-child component communication only “sibling” component communication.</p>
+    </div>
+
+    <h2 class="text-xl m-3">Level 0 - Under the hood, $dispatch is a wrapper for the more verbose API: element.dispatchEvent(new CustomEvent(...))</h2>
+    <div class="m-3 mb-10">
+      <a href="https://medium.com/cstech/javascript-understanding-customevent-and-dispatchevent-a33d10075818" target="_blank">JavaScript: Understanding CustomEvent and dispatchEvent</a>
+      <br>
+      <script>
+        const event = new Event('NOTIFICATION_ADD');
+        function handleButtonClick(){
+          window.dispatchEvent(event);
+        }
+
+        function handleAddNotification(e) {
+          console.log(e);
+        }
+
+        window.addEventListener('NOTIFICATION_ADD', handleAddNotification);
+      </script>
+
+      <button onclick="handleButtonClick()">Call Event</button><br>
+
+      <script>
+        const event_custom = new CustomEvent('CUSTOM_NOTIFICATION_ADD', { 
+          detail: {
+            title: 'Error!',
+            message: 'There was a problem creating your account.'
+          }
+        });
+
+        function handleButtonClick2(){
+          window.dispatchEvent(event_custom);
+        }
+
+        function handleAddNotification2(e) {
+          console.log(e);
+          console.log(e.detail.title + ' ' + e.detail.message);
+        }
+
+        window.addEventListener('CUSTOM_NOTIFICATION_ADD', handleAddNotification2);
+      </script>
+
+      <button onclick="handleButtonClick2()">Call Custom Event</button>
+    </div>
+
+    <h3 class="text-xl m-3">Level 1 - Shortcut</h3>
+    <div class="m-3 mb-10">
+      <div x-data @editing="console.log('Edit Clicked')">
+        <button @click="$dispatch('editing')">Dispatch</button>
+      </div>
+      <hr />
+      <div x-data @editing="console.log('Edit Clicked')"></div>
+        <button @click="$dispatch('editing')">Dispatch</button>
+      </div>
+    </div>
+
+    
+    <h3 class="text-xl m-3">Level 2 - .detail</h3>
+    <div class="m-3 mb-10">
+      <p>You can also pass data along with the dispatched event if you wish. This data will be accessible as the .detail property of the event:</p>
+
+      <div x-data @notify="alert($event.detail.message)">
+        <button @click="$dispatch('notify', { message: 'Hello World!' })">Notify</button>
+      </div>
+    </div>
+
+
+    <h3 class="text-xl m-3">Level 3 - TODO: Note on event propagation</h3>
+    <div class="m-3 mb-10">
+      <a href="https://en.wikipedia.org/wiki/Event_bubbling" target="_blank">Event bubbling</a>
+
+      <!-- 🚫 Won't work (in fact works...) -->
+      <div x-data>
+        <span @notify="console.log('Edit Clicked')"></span>
+        <button @click="$dispatch('notify')">Notify</button>
+      </div>
+    
+      <hr />
+
+      <!-- ✅ Will work (because of .window) -->
+      <div x-data>
+        <span @notify.window="console.log('Edit Clicked')"></span>
+        <button @click="$dispatch('notify')">Notify</button>
+      </div>
+    </div>
+    <hr />
+
+    <h3 class="text-xl m-3">Level 4 - Dispatching to other components</h3>
+    <div class="m-3 mb-10">
+      <div
+        x-data="{ title: 'Hello' }"
+        @set-title.window="title = $event.detail"
+      >
+          <h1 x-text="title"></h1>
+      </div>
+      
+      <div x-data>
+          <button @click="$dispatch('set-title', 'Hello World!')">Click me</button>
+      </div>
+      <!-- When clicked, the content of the h1 will set to "Hello World!". -->
+    </div>
+
+    <h3 class="text-xl m-3">Level 5 - Dispatching to other components - TODO</h3>
+    <div class="m-3 mb-10">
+      <p>You can also use $dispatch() to trigger data updates for x-model data bindings. For example:</p>
+
+      <div x-data="{ title: 'Hello' }">
+        <span x-model="title">
+            <button @click="$dispatch('input', 'Hello World!')">Click me</button>
+            <!-- After the button is pressed, `x-model` will catch the bubbling "input" event, and update title. -->
+        </span>
+      </div>
+    </div>
+
+    <h3 class="text-xl m-3">Level 6 - Alpine.js "window as event bus" demo</h3>
+    <div class="m-3 mb-10">
+      <div x-data="{ isOpen: false }">
+        <!-- this component can be shown/hidden using a `toggle` event  -->
+        <div
+          x-show="isOpen"
+          x-on:toggle.window="isOpen = !isOpen"
+          role="alert"
+          >
+          <p>This alert is toggled when `toggle` events are dispatched.</p>
+          <button @click="isOpen = false">close alert</button>
+        </div>
+      </div>
+      <div x-data="{}">
+        <p>The button in this component can toggle the "alert".</p>
+        <button @click="$dispatch('toggle')">Toggle alert</button>
+      </div>
+      <div x-data="{}">
+        <p>The button in this component can <strong>also</strong> toggle the "alert".</p>
+        <button @click="$dispatch('toggle')">Toggle alert 2</button>
+      </div>
+    </div>
+
+    <h3 class="text-xl m-3">Level 7 - Alpine.js "window as event bus" flash message/toast</h3>
+    <div class="m-3 mb-10">
+      <div x-data="{ msg: '', level: '' }">
+        Flash Component
+        <template x-on:flash.window="msg = $event.detail.msg; level = $event.detail.level;"></template>
+        <template x-if="msg && level">
+          <div role="alert" class="mt-2">
+            <div class="text-white font-bold rounded-t px-4 py-2 capitalize" :class="{'bg-red-500': level === 'error', 'bg-blue-500': level === 'info'}" x-text="level">
+            </div>
+            <div class="border border-t-0 rounded-b px-4 py-3" :class="{'bg-red-100 text-red-700 border-red-400': level === 'error', 'bg-blue-100 text-blue-700 border-blue-400': level === 'info'}">
+              <p x-text="msg"></p>
+            </div>
+          </div>
+        </template>
+      </div>
+      <div x-data="{}">
+        Trigger 1
+        <button @click="$dispatch('flash', { level: 'info', msg: 'This is an info message' })" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Flash Info
+        </button>
+      </div>
+      <div x-data="{}">
+        Trigger 2
+        <button @click="$dispatch('flash', { level: 'error', msg: 'This is an error message' })" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+          Flash Error
+        </button>
+      </div>
+      <div x-data="{}">
+        Trigger 3
+        <button @click="$dispatch('flash', { level: '', msg: '' })" class="font-bold py-2 px-4 rounded">
+          Clear Flash
+        </button>
+      </div>
+    </div>
+
+  </body>
+</html>
